@@ -240,21 +240,6 @@ function analyzePosture(pose) {
 
 // Update metrics display
 function updateMetricsDisplay(shoulderAngle, headSideTilt, headForwardTilt, isGoodPosture, issues) {
-    // Update angle displays
-    if (shoulderAngle !== null) {
-        shoulderAngleEl.textContent = `${Math.round(shoulderAngle)}°`;
-        shoulderAngleEl.style.color = shoulderAngle > CONFIG.SHOULDER_ANGLE_THRESHOLD ? '#ff5252' : '#4caf50';
-    }
-    
-    if (headSideTilt !== null) {
-        headTiltEl.textContent = `${Math.round(headSideTilt)}°`;
-        headTiltEl.style.color = headSideTilt > CONFIG.HEAD_SIDE_TILT_THRESHOLD ? '#ff5252' : '#4caf50';
-    }
-    
-    if (headForwardTilt !== null) {
-        neckAngleEl.textContent = `${Math.round(headForwardTilt)}°`;
-        neckAngleEl.style.color = headForwardTilt > CONFIG.HEAD_FORWARD_TILT_THRESHOLD ? '#ff5252' : '#4caf50';
-    }
     
     // Update status
     if (!isGoodPosture) {
