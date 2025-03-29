@@ -39,7 +39,8 @@ h1 {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-video, canvas {
+video,
+canvas {
     width: 100%;
     height: auto;
     display: block;
@@ -85,9 +86,17 @@ video, canvas {
 }
 
 @keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .metrics {
@@ -111,7 +120,9 @@ video, canvas {
     color: #aaa;
 }
 
-#shoulder-angle, #neck-angle, #head-tilt {
+#shoulder-angle,
+#neck-angle,
+#head-tilt {
     font-size: 24px;
     font-weight: bold;
     color: #4caf50;
