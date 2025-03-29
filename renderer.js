@@ -1,20 +1,24 @@
 // Configuration options
 const CONFIG = {
-    FPS_LIMIT: 15,                       // Limit detection to 15 FPS
+    FPS_LIMIT: 10,                       // Limit detection to 15 FPS
     SHOULDER_ANGLE_THRESHOLD: 30,        // Shoulder tilt threshold (degrees)
     HEAD_SIDE_TILT_THRESHOLD: 40,        // Head side tilt threshold (degrees)
     HEAD_FORWARD_TILT_THRESHOLD: 40,     // Head forward tilt threshold (degrees)
-    DETECTION_CONFIDENCE: 0.6            // Confidence threshold for keypoints
+    DETECTION_CONFIDENCE: 0.6,           // Confidence threshold for keypoints
+    POSTURE_CHECK_INTERVAL: 30000        // Check posture every 30 seconds (30000ms)
 };
 
 // State variables
 let poseModel = null;
 let lastFrameTime = 0;
-let goodPostureTime = 0;
-let badPostureTime = 0;
-let goodPostureStartTime = null;
-let badPostureStartTime = null;
 let lastPostureState = null; // 'good' or 'bad'
+let lastSoundTime = 0; // Track when we last played the sound
+
+// Posture tracking - store timestamps and durations
+const postureSamples = [];  // Will store {timestamp, state, duration} objects
+
+// Audio element for quack sound
+let quackSound = null;
 
 // DOM elements
 const video = document.getElementById('webcam');
@@ -31,8 +35,8 @@ async function init() {
         // Set up webcam
         const stream = await navigator.mediaDevices.getUserMedia({
             video: { 
-                width: 640, 
-                height: 480,
+                width: 600, 
+                height: 400,
                 facingMode: 'user' 
             }
         });
@@ -68,6 +72,12 @@ async function init() {
         
         // Start timer for tracking good posture time
         setInterval(updatePostureTime, 1000);
+        
+        // Start periodic posture checking
+        setInterval(checkPostureAndSound, CONFIG.POSTURE_CHECK_INTERVAL);
+        
+        // Initialize sound
+        setupSound();
     } catch (error) {
         console.error("Error initializing:", error);
         statusEl.textContent = "Error: " + error.message;
@@ -75,20 +85,86 @@ async function init() {
     }
 }
 
-// Update posture time counter
+// Setup sound element
+function setupSound() {
+    quackSound = new Audio('quack.mp3');
+    quackSound.preload = 'auto';
+}
+
+// Play quack sound
+function playQuackSound() {
+    if (quackSound) {
+        quackSound.currentTime = 0; // Reset to start
+        quackSound.play().catch(err => {
+            console.error('Error playing sound:', err);
+        });
+    }
+}
+
+function sendNotification() {
+    console.log('Attempting to send notification...');
+    
+    // Check if the notifications API is available from preload
+    if (window.notifications && typeof window.notifications.send === 'function') {
+        const success = window.notifications.send();
+        console.log('Notification request sent:', success);
+    } else {
+        console.error('Notifications API not available in renderer');
+    }
+}
+
+// Update posture time continuously
 function updatePostureTime() {
-    if (lastPostureState === 'good') {
-        if (!goodPostureStartTime) {
-            goodPostureStartTime = Date.now();
-            badPostureStartTime = null;
+    const now = Date.now();
+    
+    if (lastPostureState) {
+        // Add new posture sample
+        postureSamples.push({
+            timestamp: now,
+            state: lastPostureState,
+            duration: 1 // 1 second
+        });
+        
+        // Remove samples older than 30 seconds
+        const cutoffTime = now - CONFIG.POSTURE_CHECK_INTERVAL;
+        while (postureSamples.length > 0 && postureSamples[0].timestamp < cutoffTime) {
+            postureSamples.shift();
         }
-        goodPostureTime = Math.floor((Date.now() - goodPostureStartTime) / 1000);
-    } else if (lastPostureState === 'bad') {
-        if (!badPostureStartTime) {
-            badPostureStartTime = Date.now();
-            goodPostureStartTime = null;
+    }
+}
+
+// Check posture and play sound if needed
+function checkPostureAndSound() {
+    const now = Date.now();
+    
+    // Calculate cumulative times
+    let goodPostureTime = 0;
+    let badPostureTime = 0;
+    
+    postureSamples.forEach(sample => {
+        if (sample.state === 'good') {
+            goodPostureTime += sample.duration;
+        } else if (sample.state === 'bad') {
+            badPostureTime += sample.duration;
         }
-        badPostureTime = Math.floor((Date.now() - badPostureStartTime) / 1000);
+    });
+    
+    console.log(`Last 30s: Good posture=${goodPostureTime}s, Bad posture=${badPostureTime}s`);
+    
+    // Check if we have enough samples and bad posture time exceeds good posture time
+    if (postureSamples.length > 0 && badPostureTime > goodPostureTime) {
+        // Check if we should play sound (avoid too frequent sounds)
+        if (now - lastSoundTime > 10000) { // At least 10 seconds between sounds
+            console.log("Bad posture detected - playing sound and sending notification");
+            playQuackSound();
+            
+            // Send notification after a slight delay to avoid synchronization issues
+            setTimeout(() => {
+                sendNotification();
+            }, 300);
+            
+            lastSoundTime = now;
+        }
     }
 }
 
@@ -264,7 +340,8 @@ function drawPose(pose, shoulderAngle, headSideTilt, headForwardTilt, isGoodPost
             // Draw keypoint
             ctx.fillStyle = color;
             ctx.beginPath();
-            ctx.arc(keypoint.x, keypoint.y, 5, 0, 2 * Math.PI);
+            ctx.arc(keypoint.x, keypoint.y, 5,
+    0, 2 * Math.PI);
             ctx.fill();
         }
     });
