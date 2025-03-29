@@ -1,0 +1,19 @@
+{
+  "name": "ducktor",
+  "version": "1.0.0",
+  "description": "A duck app that cares for your well beign",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "duck",
+    "ml"
+  ],
+  "author": "Team Ducktor",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^35.1.2"
+  }
+}
