@@ -1,7 +1,7 @@
 {
   "name": "ducktor",
   "version": "1.0.0",
-  "description": "A duck app that cares for your well beign",
+  "description": "A duck app that cares for your well begin",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
