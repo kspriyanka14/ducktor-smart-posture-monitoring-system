@@ -3,74 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Duck Fatigue Detector</title>
+  <title>Ducktor - Your Posture Monitor</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- TensorFlow.js libraries required for face detection -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.0.3"></script>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-          <img src="assets/icon.png" alt="Duck Logo" class="duck-logo">
-          <h1>DUCKTOR</h1>
-        </div>
-    </header>
+  <!-- Header with logo and app name -->
+  <header>
+    <div class="logo-container">
+      <img src="assets/icon.png" alt="Duck Logo" class="duck-logo">
+      <h1>DUCKTOR</h1>
+    </div>
+  </header>
 
+  <!-- Main content area -->
   <main>
+    <!-- Animated duck container -->
     <div class="animated-duck-container">
       <img src="assets/animated_duck.gif" alt="Animated Duck" class="animated-duck">
     </div>
-
-    <section class="controls">
-      <div class="control-panel">
-        <h2>Detection Settings</h2>
-        <div class="form-group">
-          <label for="fatigue-sensitivity">Fatigue Sensitivity:</label>
-          <select id="fatigue-sensitivity">
-            <option value="low">Low</option>
-            <option value="medium" selected>Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="enable-sound">Enable Quack Sound:</label>
-          <input type="checkbox" id="enable-sound" checked>
-        </div>
-        <div class="form-group">
-          <label for="enable-speech">Enable Voice Alerts:</label>
-          <input type="checkbox" id="enable-speech" checked>
-        </div>
-      </div>
-      <div class="control-panel">
-        <h2>Break Settings</h2>
-        <div class="form-group">
-          <label for="scheduled-breaks">Enable Scheduled Breaks:</label>
-          <input type="checkbox" id="scheduled-breaks" checked>
-        </div>
-        <div class="form-group">
-          <label for="break-interval">Break Interval (minutes):</label>
-          <input type="number" id="break-interval" min="5" max="120" value="30">
-        </div>
-        <div class="form-group">
-          <label for="break-duration">Break Duration (minutes):</label>
-          <input type="number" id="break-duration" min="1" max="30" value="5">
-        </div>
-        <button id="save-settings" class="duck-button">Start Cam</button> 
-    </div>
-
-    </section>
+    
+    <!-- Start button -->
+    <button id="save-settings" class="duck-button">Start Cam</button>
   </main>
 
+  <!-- Footer with copyright info -->
   <footer>
-    <p>Ducktor - Your Feathered Posture Pro!  &copy; 2025</p>
+    <p>Ducktor - Your Feathered Posture Pro! &copy; 2025</p>
   </footer>
 
+  <!-- Audio for notifications -->
   <audio id="quack-sound" src="assets/quack.mp3" preload="auto"></audio>
+  
+  <!-- JavaScript -->
   <script src="renderer.js" type="module"></script>
   <script>
+    // Event listener for the Start Cam button
     document.getElementById('save-settings').addEventListener('click', () => {
-        console.log("Button clicked, calling window.api.openCamPage()");
-        window.api.openCamPage();
+      console.log("Button clicked, opening camera page");
+      window.api.openCamPage();
     });
   </script>
 </body>
