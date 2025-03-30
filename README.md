@@ -1,7 +1,5 @@
 # 🦆 Ducktor - Your Feathered Posture Pro
 
-<div align="center"><img src="assets/icon.png" alt="Ducktor Logo" width="110" height="150"></div>
-
 ## Our Story
 
 It all started when Priyanka from our team came across an Instagram post about the shocking effects of prolonged sitting and poor posture. The post was filled with intimidating medical jargon and scary statistics, but the message was clear - many of us are unknowingly damaging our bodies as we work.
