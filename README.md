@@ -1,6 +1,6 @@
 # 🦆 Ducktor - Your Feathered Posture Pro
 
-![Ducktor Logo](assets/icon.png)
+<div align="center"><img src="assets/icon.png" alt="Ducktor Logo" width="110" height="150"></div>
 
 ## Our Story
 
