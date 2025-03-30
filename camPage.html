@@ -1,74 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ducktor - Posture Monitor</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Load Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+
+<body class="cam-page">
   <!-- Header with logo and app name -->
-  <header>
+  <header class="glass-panel">
     <div class="logo-container">
       <img src="assets/icon.png" alt="Duck Logo" class="duck-logo">
       <h1>DUCKTOR</h1>
     </div>
+
+    <div class="header-controls">
+      <!-- Theme toggle button -->
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="theme-icon-light">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-dark">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <!-- Back button -->
+      <button id="back-button" class="icon-button" aria-label="Back to Home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+    </div>
   </header>
-  
+
   <!-- Main container -->
   <div class="container">
-    <!-- Video container for webcam and overlay -->
-    <div class="video-container">
-      <video id="webcam" autoplay playsinline></video>
-      <canvas id="overlay"></canvas>
-      <div id="status-box">
-        <div class="status-label">Status:</div>
-        <div id="status" class="normal">Initializing...</div>
+    <div class="grid-layout">
+      <!-- Grid Cell 1: Video container for webcam and overlay -->
+      <div class="grid-cell video-container glass-panel">
+        <video id="webcam" autoplay playsinline></video>
+        <canvas id="overlay"></canvas>
+        <div id="status-box">
+          <div id="status" class="normal">Initializing...</div>
+        </div>
+      </div>
+
+      <!-- Grid Cell 2: Break reminder controls -->
+      <div class="grid-cell control-card glass-panel">
+        <h3>Break Reminder</h3>
+        <p class="control-description">Set your preferred break interval below.</p>
+
+        <div class="break-reminder-controls">
+          <!-- Toggle switch with label -->
+          <div class="control-group">
+            <label for="standup-toggle" class="toggle-label">Enable Break Reminders</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="standup-toggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Interval slider with current value -->
+          <div class="control-group">
+            <label for="interval-slider">Reminder Interval: <span id="interval-value">60</span> minutes</label>
+            <div class="slider-container">
+              <input type="range" id="interval-slider" min="5" max="60" step="5" value="60" class="interval-slider"
+                aria-valuemin="5" aria-valuemax="60" aria-valuenow="60">
+              <div class="interval-ticks">
+                <span class="tick"></span>
+                <span class="tick"></span>
+                <span class="tick"></span>
+                <span class="tick"></span>
+                <span class="tick"></span>
+              </div>
+              <div class="interval-labels">
+                <span>5</span>
+                <span>20</span>
+                <span>40</span>
+                <span>60</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="reminder-status">
+            Next reminder: <span id="reminder-status-text">Off</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid Cell 3: Posture Tips -->
+      <div class="grid-cell control-card glass-panel">
+        <h3>Posture Tips</h3>
+        <ul class="tips-list">
+          <li>Keep your head balanced over your shoulders</li>
+          <li>Position your monitor at eye level</li>
+          <li>Keep shoulders relaxed and back</li>
+          <li>Take short breaks every hour</li>
+          <li>Sit with your back straight against the chair</li>
+          <li>Keep feet flat on the floor or on a footrest</li>
+        </ul>
+      </div>
+
+      <!-- Grid Cell 4: About Ducktor -->
+      <div class="grid-cell control-card glass-panel">
+        <h3>About Ducktor</h3>
+        <div class="about-content">
+          <p>Ducktor is your friendly posture companion that helps you maintain good posture while working at your
+            computer.</p>
+          <p>Using your webcam, Ducktor monitors your posture in real-time and provides feedback when it detects issues.
+            Our favorite duck will quack at you when it's time to straighten up!</p>
+          <p>Regular breaks are important too, so Ducktor can remind you to take short breaks throughout your day.</p>
+        </div>
       </div>
     </div>
-
-    <!-- Break reminder toggle controls -->
-    <div class="reminder-controls">
-      <label class="toggle-switch">
-        <input type="checkbox" id="standup-toggle">
-        <span class="toggle-slider"></span>
-      </label>
-      <span class="toggle-label">Break Reminder</span>
-      <div class="reminder-status">Reminder: <span id="reminder-status-text">Off</span></div>
-    </div>
-    
-    <!-- Interval slider controls -->
-    <div class="interval-controls">
-      <label for="interval-slider">Reminder Interval: <span id="interval-value">60</span> minutes</label>
-      <input type="range" id="interval-slider" min="5" max="60" step="5" value="60" class="interval-slider">
-      <div class="interval-markers">
-        <span>5m</span>
-        <span>30m</span>
-        <span>60m</span>
-      </div>
-    </div>
-
-    <!-- Back button -->
-    <button id="back-button" class="duck-button">Back to Home</button>
-
-    <!-- TensorFlow.js and PoseNet libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
-    
-    <!-- Main JavaScript -->
-    <script src="renderer.js"></script>
-    
-    <!-- Back button script -->
-    <script>
-      document.getElementById('back-button')?.addEventListener('click', () => {
-        window.api.goBack();
-      });
-    </script>
   </div>
-  
-  <!-- Footer -->
-  <footer>
-    <p>Ducktor - Your Feathered Posture Pro! &copy; 2025</p>
-  </footer>
+
+  <!-- TensorFlow.js and PoseNet libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+
+  <!-- Main JavaScript -->
+  <script src="renderer.js"></script>
+
+  <!-- Page-specific JavaScript -->
+  <script>
+    // Back button functionality
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.api.goBack();
+    });
+
+    // Theme toggle functionality
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+      document.body.classList.toggle('light-theme');
+
+      // Save theme preference
+      const isDarkTheme = document.body.classList.contains('dark-theme');
+      localStorage.setItem('darkTheme', isDarkTheme);
+    });
+
+    // Check for saved theme preference on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const savedTheme = localStorage.getItem('darkTheme');
+
+      if (savedTheme === 'true' || (savedTheme === null && prefersDark)) {
+        document.body.classList.add('dark-theme');
+        document.body.classList.remove('light-theme');
+      } else {
+        document.body.classList.add('light-theme');
+        document.body.classList.remove('dark-theme');
+      }
+    });
+  </script>
 </body>
+
 </html>
