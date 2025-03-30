@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ducktor</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.0.3"></script>
+  </head>
+
+<body>
+    <header>
+        <div class="logo-container">
+          <img src="assets/icon.png" alt="Duck Logo" class="duck-logo">
+          <h1>DUCKTOR</h1>
+        </div>
+      </header>
+    <div class="container">
+        
+
+        <div class="video-container">
+            <video id="webcam" autoplay playsinline></video>
+            <canvas id="overlay"></canvas>
+            <div id="status-box">
+                <div class="status-label">Status:</div>
+                <div id="status" class="normal">Initializing...</div>
+            </div>
+        </div>
+
+        <!-- TensorFlow.js and PoseNet -->
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+        <script src="renderer.js"></script>
+        <button id="reconfigureButton" class="duck-button">Reconfigure</button>
+    </div>
+    
+    <footer>
+        <p>Ducktor - Your Feathered Posture Pro!  &copy; 2025</p>
+      </footer>
+      <script>
+        document.getElementById('reconfigureButton').addEventListener('click', () => {
+            window.api.goBack();
+        });
+    </script>
+</body>
+</html>
