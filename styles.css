@@ -873,6 +873,126 @@ input:focus-visible {
   pointer-events: none;
 }
 
+/* ===== Exercise Carousel ===== */
+.exercise-carousel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-slide {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: none;
+}
+
+.exercise-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.exercise-card h4 {
+  font-size: 1.2rem;
+  margin-bottom: var(--space-md);
+  color: var(--ducktor-teal);
+}
+
+.exercise-image-container {
+  width: 80%;
+  max-width: 200px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.exercise-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-normal);
+}
+
+.exercise-card:hover .exercise-image {
+  transform: scale(1.05);
+}
+
+/* Carousel Controls */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-sm) 0;
+}
+
+.carousel-button {
+  background: var(--panel-highlight);
+  border: 1px solid var(--panel-border);
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.carousel-button:hover {
+  background-color: var(--ducktor-teal);
+  color: white;
+  transform: scale(1.1);
+}
+
+.carousel-button:active {
+  transform: scale(0.95);
+}
+
+.dark-theme .carousel-button:hover {
+  background-color: var(--ducktor-cyan);
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.carousel-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--panel-highlight);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.carousel-indicator.active {
+  background-color: var(--ducktor-teal);
+  transform: scale(1.3);
+}
+
+.dark-theme .carousel-indicator.active {
+  background-color: var(--ducktor-cyan);
+}
+
 /* ===== Animations ===== */
 @keyframes blink {
   0% {
@@ -1033,5 +1153,11 @@ input:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .exercise-image-container {
+    max-width: 150px;
   }
 }

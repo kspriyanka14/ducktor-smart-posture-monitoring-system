@@ -279,6 +279,146 @@ function setupUIEffects() {
     }
 }
 
+/**
+ * Initialize and manage the exercise carousel
+ */
+function initCarousel() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevButton = document.querySelector('.carousel-button.prev');
+    const nextButton = document.querySelector('.carousel-button.next');
+    
+    if (!slides.length || !indicators.length || !prevButton || !nextButton) {
+        console.log("Carousel elements not found, skipping initialization");
+        return;
+    }
+    
+    let currentSlide = 0;
+    let autoplayTimer = null;
+    
+    /**
+     * Show a specific slide and update indicators
+     * @param {number} index - The slide index to show
+     */
+    function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => {
+            slide.style.display = 'none';
+        });
+        
+        // Remove active state from all indicators
+        indicators.forEach(indicator => {
+            indicator.classList.remove('active');
+        });
+        
+        // Show current slide and activate indicator
+        slides[index].style.display = 'block';
+        indicators[index].classList.add('active');
+        
+        // Update current slide index
+        currentSlide = index;
+        
+        // Reset autoplay timer
+        resetAutoplayTimer();
+    }
+    
+    /**
+     * Move to the next slide
+     */
+    function nextSlide() {
+        const nextIndex = (currentSlide + 1) % slides.length;
+        showSlide(nextIndex);
+    }
+    
+    /**
+     * Move to the previous slide
+     */
+    function prevSlide() {
+        const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prevIndex);
+    }
+    
+    /**
+     * Reset the autoplay timer
+     */
+    function resetAutoplayTimer() {
+        // Clear existing timer
+        if (autoplayTimer) {
+            clearTimeout(autoplayTimer);
+        }
+        
+        // Set new timer
+        autoplayTimer = setTimeout(() => {
+            nextSlide();
+        }, 8000); // Change slide every 8 seconds
+    }
+    
+    // Initial slide setup
+    showSlide(0);
+    
+    // Start autoplay
+    resetAutoplayTimer();
+    
+    // Next slide handler
+    nextButton.addEventListener('click', () => {
+        nextSlide();
+    });
+    
+    // Previous slide handler
+    prevButton.addEventListener('click', () => {
+        prevSlide();
+    });
+    
+    // Indicator click handlers
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            showSlide(index);
+        });
+    });
+    
+    // Enable touch/swipe navigation
+    let startX = 0;
+    const slidesContainer = document.querySelector('.carousel-slides');
+    
+    slidesContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+    
+    slidesContainer.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > 50) { // Minimum swipe distance
+            if (diff > 0) { // Swipe left - next slide
+                nextSlide();
+            } else { // Swipe right - previous slide
+                prevSlide();
+            }
+        }
+    });
+    
+    // Pause autoplay when user interacts with carousel
+    const carouselElement = document.querySelector('.exercise-carousel');
+    
+    carouselElement.addEventListener('mouseenter', () => {
+        if (autoplayTimer) {
+            clearTimeout(autoplayTimer);
+            autoplayTimer = null;
+        }
+    });
+    
+    carouselElement.addEventListener('mouseleave', () => {
+        resetAutoplayTimer();
+    });
+}
+
+// Add carousel initialization to the main init function
+if (document.querySelector('.exercise-carousel')) {
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(initCarousel, 500); // Slight delay to ensure DOM is fully loaded
+    });
+}
+
 // ==============================================
 // Break reminder functionality
 // ==============================================
