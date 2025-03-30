@@ -1,31 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Posture Detector</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duck Fatigue Detector</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.0.3"></script>
 </head>
-
 <body>
-    <div class="container">
-        <h1>DUCKTOR</h1>
-
-        <div class="video-container">
-            <video id="webcam" autoplay playsinline></video>
-            <canvas id="overlay"></canvas>
-            <div id="status-box">
-                <div class="status-label">Status:</div>
-                <div id="status" class="normal">Initializing...</div>
-            </div>
+    <header>
+        <div class="logo-container">
+          <img src="assets/icon.png" alt="Duck Logo" class="duck-logo">
+          <h1>DUCKTOR</h1>
         </div>
+    </header>
 
-        <!-- TensorFlow.js and PoseNet -->
-        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
-        <script src="renderer.js"></script>
+  <main>
+    <div class="animated-duck-container">
+      <img src="assets/animated_duck.gif" alt="Animated Duck" class="animated-duck">
     </div>
-</body>
 
+    <section class="controls">
+      <div class="control-panel">
+        <h2>Detection Settings</h2>
+        <div class="form-group">
+          <label for="fatigue-sensitivity">Fatigue Sensitivity:</label>
+          <select id="fatigue-sensitivity">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="enable-sound">Enable Quack Sound:</label>
+          <input type="checkbox" id="enable-sound" checked>
+        </div>
+        <div class="form-group">
+          <label for="enable-speech">Enable Voice Alerts:</label>
+          <input type="checkbox" id="enable-speech" checked>
+        </div>
+      </div>
+      <div class="control-panel">
+        <h2>Break Settings</h2>
+        <div class="form-group">
+          <label for="scheduled-breaks">Enable Scheduled Breaks:</label>
+          <input type="checkbox" id="scheduled-breaks" checked>
+        </div>
+        <div class="form-group">
+          <label for="break-interval">Break Interval (minutes):</label>
+          <input type="number" id="break-interval" min="5" max="120" value="30">
+        </div>
+        <div class="form-group">
+          <label for="break-duration">Break Duration (minutes):</label>
+          <input type="number" id="break-duration" min="1" max="30" value="5">
+        </div>
+        <button id="save-settings" class="duck-button">Start Cam</button> 
+    </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>Ducktor - Your Feathered Posture Pro!  &copy; 2025</p>
+  </footer>
+
+  <audio id="quack-sound" src="assets/quack.mp3" preload="auto"></audio>
+  <script src="renderer.js" type="module"></script>
+  <script>
+    document.getElementById('save-settings').addEventListener('click', () => {
+        console.log("Button clicked, calling window.api.openCamPage()");
+        window.api.openCamPage();
+    });
+  </script>
+</body>
 </html>
