@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body class="cam-page">
   <!-- Header with logo and app name -->
   <header class="glass-panel">
@@ -19,13 +17,11 @@
       <img src="assets/icon.png" alt="Duck Logo" class="duck-logo">
       <h1>DUCKTOR</h1>
     </div>
-
+    
     <div class="header-controls">
       <!-- Theme toggle button -->
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="theme-icon-light">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-light">
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
           <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -36,23 +32,21 @@
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-dark">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
-
+      
       <!-- Back button -->
       <button id="back-button" class="icon-button" aria-label="Back to Home">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 12H5"></path>
           <path d="M12 19l-7-7 7-7"></path>
         </svg>
       </button>
     </div>
   </header>
-
+  
   <!-- Main container -->
   <div class="container">
     <div class="grid-layout">
@@ -61,6 +55,7 @@
         <video id="webcam" autoplay playsinline></video>
         <canvas id="overlay"></canvas>
         <div id="status-box">
+          <div class="status-label">Status:</div>
           <div id="status" class="normal">Initializing...</div>
         </div>
       </div>
@@ -69,7 +64,7 @@
       <div class="grid-cell control-card glass-panel">
         <h3>Break Reminder</h3>
         <p class="control-description">Set your preferred break interval below.</p>
-
+        
         <div class="break-reminder-controls">
           <!-- Toggle switch with label -->
           <div class="control-group">
@@ -79,13 +74,12 @@
               <span class="toggle-slider"></span>
             </label>
           </div>
-
+          
           <!-- Interval slider with current value -->
           <div class="control-group">
             <label for="interval-slider">Reminder Interval: <span id="interval-value">60</span> minutes</label>
             <div class="slider-container">
-              <input type="range" id="interval-slider" min="5" max="60" step="5" value="60" class="interval-slider"
-                aria-valuemin="5" aria-valuemax="60" aria-valuenow="60">
+              <input type="range" id="interval-slider" min="5" max="60" step="5" value="60" class="interval-slider" aria-valuemin="5" aria-valuemax="60" aria-valuenow="60">
               <div class="interval-ticks">
                 <span class="tick"></span>
                 <span class="tick"></span>
@@ -101,7 +95,7 @@
               </div>
             </div>
           </div>
-
+          
           <div class="reminder-status">
             Next reminder: <span id="reminder-status-text">Off</span>
           </div>
@@ -120,16 +114,78 @@
           <li>Keep feet flat on the floor or on a footrest</li>
         </ul>
       </div>
-
-      <!-- Grid Cell 4: About Ducktor -->
+      
+      <!-- Grid Cell 4: Posture Exercises Carousel -->
       <div class="grid-cell control-card glass-panel">
-        <h3>About Ducktor</h3>
-        <div class="about-content">
-          <p>Ducktor is your friendly posture companion that helps you maintain good posture while working at your
-            computer.</p>
-          <p>Using your webcam, Ducktor monitors your posture in real-time and provides feedback when it detects issues.
-            Our favorite duck will quack at you when it's time to straighten up!</p>
-          <p>Regular breaks are important too, so Ducktor can remind you to take short breaks throughout your day.</p>
+        <h3>My Favorite Posture Exercises</h3>
+        
+        <!-- Carousel container -->
+        <div class="exercise-carousel">
+          <!-- Slides container -->
+          <div class="carousel-slides">
+            <!-- Exercise 1 -->
+            <div class="carousel-slide">
+              <div class="exercise-card">
+                <h4>Chest Release</h4>
+                <div class="exercise-image-container">
+                  <img src="assets/exercise1.gif" alt="Shoulder Roll Exercise" class="exercise-image">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Exercise 2 -->
+            <div class="carousel-slide">
+              <div class="exercise-card">
+                <h4>Standing Forward Bend</h4>
+                <div class="exercise-image-container">
+                  <img src="assets/exercise2.gif" alt="Neck Stretch Exercise" class="exercise-image">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Exercise 3 -->
+            <div class="carousel-slide">
+              <div class="exercise-card">
+                <h4>Shoulder Rolls</h4>
+                <div class="exercise-image-container">
+                  <img src="assets/exercise3.gif" alt="Back Extension Exercise" class="exercise-image">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Exercise 4 -->
+            <div class="carousel-slide">
+              <div class="exercise-card">
+                <h4>Spine Stretch</h4>
+                <div class="exercise-image-container">
+                  <img src="assets/exercise4.gif" alt="Core Strengthening Exercise" class="exercise-image">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Carousel Controls -->
+          <div class="carousel-controls">
+            <button class="carousel-button prev" aria-label="Previous exercise">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"></path>
+              </svg>
+            </button>
+            
+            <!-- Carousel indicators -->
+            <div class="carousel-indicators">
+              <span class="carousel-indicator active"></span>
+              <span class="carousel-indicator"></span>
+              <span class="carousel-indicator"></span>
+              <span class="carousel-indicator"></span>
+            </div>
+            
+            <button class="carousel-button next" aria-label="Next exercise">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -138,32 +194,32 @@
   <!-- TensorFlow.js and PoseNet libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
-
+  
   <!-- Main JavaScript -->
   <script src="renderer.js"></script>
-
+  
   <!-- Page-specific JavaScript -->
   <script>
     // Back button functionality
     document.getElementById('back-button').addEventListener('click', () => {
       window.api.goBack();
     });
-
+    
     // Theme toggle functionality
     document.getElementById('theme-toggle').addEventListener('click', () => {
       document.body.classList.toggle('dark-theme');
       document.body.classList.toggle('light-theme');
-
+      
       // Save theme preference
       const isDarkTheme = document.body.classList.contains('dark-theme');
       localStorage.setItem('darkTheme', isDarkTheme);
     });
-
+    
     // Check for saved theme preference on load
     document.addEventListener('DOMContentLoaded', () => {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const savedTheme = localStorage.getItem('darkTheme');
-
+      
       if (savedTheme === 'true' || (savedTheme === null && prefersDark)) {
         document.body.classList.add('dark-theme');
         document.body.classList.remove('light-theme');
@@ -171,8 +227,84 @@
         document.body.classList.add('light-theme');
         document.body.classList.remove('dark-theme');
       }
+      
+      // Initialize carousel
+      initCarousel();
     });
+    
+    // Carousel functionality
+    function initCarousel() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const indicators = document.querySelectorAll('.carousel-indicator');
+      const prevButton = document.querySelector('.carousel-button.prev');
+      const nextButton = document.querySelector('.carousel-button.next');
+      
+      let currentSlide = 0;
+      
+      function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => {
+          slide.style.display = 'none';
+        });
+        
+        // Remove active state from all indicators
+        indicators.forEach(indicator => {
+          indicator.classList.remove('active');
+        });
+        
+        // Show current slide and activate indicator
+        slides[index].style.display = 'block';
+        indicators[index].classList.add('active');
+        
+        // Update current slide index
+        currentSlide = index;
+      }
+      
+      // Initial slide setup
+      showSlide(0);
+      
+      // Next slide handler
+      nextButton.addEventListener('click', () => {
+        const nextIndex = (currentSlide + 1) % slides.length;
+        showSlide(nextIndex);
+      });
+      
+      // Previous slide handler
+      prevButton.addEventListener('click', () => {
+        const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prevIndex);
+      });
+      
+      // Indicator click handlers
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+          showSlide(index);
+        });
+      });
+      
+      // Enable touch/swipe navigation
+      let startX = 0;
+      const slidesContainer = document.querySelector('.carousel-slides');
+      
+      slidesContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+      });
+      
+      slidesContainer.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > 50) { // Minimum swipe distance
+          if (diff > 0) { // Swipe left - next slide
+            const nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+          } else { // Swipe right - previous slide
+            const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prevIndex);
+          }
+        }
+      });
+    }
   </script>
 </body>
-
 </html>
